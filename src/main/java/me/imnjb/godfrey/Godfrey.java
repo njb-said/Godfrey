@@ -55,7 +55,7 @@ public class Godfrey {
                 throw new IllegalArgumentException(port + " is not a valid port. Must be between 0 and 65536");
             }
             String auth = args.length < 3 ? null : (args[2].equals("null") ? null : args[2]);
-            debug = args.length < 4 ? null : Boolean.parseBoolean(args[3]);
+            debug = args.length < 4 ? false : Boolean.parseBoolean(args[3]);
 
             log("[Godfrey] Good day sir!");
             log("[Godfrey] I am godfrey, a server management application that allows you to send commands to multiple servers all at once.");
