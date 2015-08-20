@@ -74,6 +74,12 @@ public class Godfrey {
                     }
                 }
             });
+
+            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+                public void run() {
+                    redis.disconnect();
+                }
+            }));
         } else {
             throw new IllegalArgumentException("You must include at least 2 arguments!");
         }
