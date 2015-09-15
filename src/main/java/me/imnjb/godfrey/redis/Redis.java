@@ -1,14 +1,10 @@
 package me.imnjb.godfrey.redis;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.*;
 
 import lombok.Getter;
 import me.imnjb.godfrey.Godfrey;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.*;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
 public @Getter class Redis {
@@ -97,6 +93,10 @@ public @Getter class Redis {
 
         public abstract void doAction(Jedis jedis, JedisPool pool);
 
+    }
+
+    public boolean isConnected() {
+        return pool != null;
     }
 
 }
