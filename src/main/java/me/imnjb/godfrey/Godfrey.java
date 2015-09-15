@@ -1,8 +1,6 @@
 package me.imnjb.godfrey;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
@@ -42,7 +40,7 @@ public class Godfrey {
 
     @Getter private final Redis redis;
     @Getter private String systemHostname;
-    @Getter private static boolean debug;
+    @Getter private static boolean debug, cachingLog;
     private static Date STARTUP = new Date();
 
     public Godfrey(String[] args) throws IllegalArgumentException, NumberFormatException {
@@ -54,8 +52,9 @@ public class Godfrey {
             if(port < 0 || port > 65536) {
                 throw new IllegalArgumentException(port + " is not a valid port. Must be between 0 and 65536");
             }
-            String auth = args.length < 3 ? null : (args[2].equals("null") ? null : args[2]);
-            debug = args.length < 4 ? false : Boolean.parseBoolean(args[3]);
+            String auth = args.length < 3 ? null : (args[2].equals("null") || args[2].equals("none") ? null : args[2]);
+            cachingLog = args.length < 4 ? true : Boolean.parseBoolean(args[3]);// Defaults to enabled
+            debug = args.length < 5 ? false : Boolean.parseBoolean(args[4]);
 
             log("[Godfrey] Good day sir!");
             log("[Godfrey] I am godfrey, a server management application that allows you to send commands to multiple servers all at once.");
